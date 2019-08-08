@@ -12,9 +12,9 @@ import CreateUser from './componets/CreateUser';
 function App() {
   return (
     <Router>
-      <div>
-        <Navigation />
+      <Navigation />
 
+      <div className="container p-4">
         <Route path="/" exact component={NotesList} />
         <Route path="/edit/id" component={CreateNote} />
         <Route path="/create" component={CreateNote} />
