@@ -25,17 +25,19 @@ notesCtrl.getNote = async (req, res) => {
 };
 
 notesCtrl.updateNote = async (req, res) => {
-  const { title, content, author } = req.body;
+  const { title, content, date, author } = req.body;
   await Note.findOneAndUpdate({ _id: req.params.id }, {
     title,
+    content,
+    date,
     author,
-    content
+
   });
   res.json({ message: 'Note updated' });
 };
 
 notesCtrl.deleteNote = async (req, res) => {
-  await Note.findOneAndDelete(req.params.id);
+  await Note.findOneAndDelete({ _id: req.params.id });
   res.send({ message: 'Note deleted' })
 };
 
