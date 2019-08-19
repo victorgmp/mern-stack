@@ -3,8 +3,15 @@ const userCtrl = {};
 const User = require('../models/User');
 
 userCtrl.getUsers = async (req, res) => {
-  const users = await User.find();
-  res.json(users);
+  try {
+    const users = await User.find();
+    res.json(users);
+  }
+  catch (err) {
+    res.status(400).json({
+      error: err
+    });
+  }
 };
 
 userCtrl.createUser = async (req, res) => {
@@ -20,15 +27,18 @@ userCtrl.getUser = async (req, res) => {
 };
 
 userCtrl.updateUser = async (req, res) => {
-  const { } = req.body;
+  // const { } = req.body;
   await Note.findOneAndUpdate({ _id: req.params.id }, {
+    username
   });
   res.json({ message: 'User updated' });
 };
 
 userCtrl.deleteUser = async (req, res) => {
-  await User.findOneAndDelete(req.params.id);
+  const { id } = req.params;
+  console.log(id);
+  await User.findOneAndDelete({ _id: req.params.id });
   res.json('User deleted');
-};
+}
 
 module.exports = userCtrl;
