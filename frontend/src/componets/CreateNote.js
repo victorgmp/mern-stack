@@ -16,7 +16,7 @@ const CreateNote = (props) => {
 
 
   useEffect(() => {
-    console.log(editNoteId);
+    //console.log(editNoteId);
 
     const getUsers = async () => {
       const res = await axios.get('http://localhost:4000/api/users');
@@ -37,7 +37,7 @@ const CreateNote = (props) => {
       }
     }
     getUsers();
-  }, []);
+  }, [editNoteId]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -48,25 +48,26 @@ const CreateNote = (props) => {
       author: userSelected
     };
     if (editing) {
-      console.log(newNote)
+      //console.log(newNote)
       await axios.put(`http://localhost:4000/api/notes/${_id}`, newNote);
     } else {
-      console.log(newNote)
+      //console.log(newNote)
 
       await axios.post('http://localhost:4000/api/notes', newNote);
     }
     //window.location.href = '/';
+    props.history.push('/');
   }
 
-  const onInputChange = e => {
-    // this.setState({
-    //   [e.target.name]: e.target.value
-    // });
-  }
+  // const onInputChange = e => {
+  //   // this.setState({
+  //   //   [e.target.name]: e.target.value
+  //   // });
+  // }
 
-  const onChangeDate = date => {
-    // this.setState({ date });
-  }
+  // const onChangeDate = date => {
+  //   // this.setState({ date });
+  // }
 
   return (
     <div className="col-md-6 offset-md-3">
@@ -78,7 +79,7 @@ const CreateNote = (props) => {
           <select
             className="form-control"
             name="userSelected"
-            onChange={onInputChange}
+            onChange={e => setUserSelected(e.target.value)}
             value={userSelected}
           >
             {
@@ -97,7 +98,7 @@ const CreateNote = (props) => {
             className="form-control"
             placeholder="Title"
             name="title"
-            onChange={onInputChange}
+            onChange={e => setTitle(e.target.value)}
             value={title}
             required
           />
@@ -108,7 +109,7 @@ const CreateNote = (props) => {
             name="content"
             className="form-control"
             placeholder="Content"
-            onChange={onInputChange}
+            onChange={e => setContent(e.target.value)}
             value={content}
             required
           >
@@ -120,7 +121,7 @@ const CreateNote = (props) => {
           <DatePicker
             className="form-control"
             selected={date}
-            onChange={onChangeDate}
+            onChange={e => setContent(date)}
           />
         </div>
 

@@ -5,15 +5,17 @@ const CreateUser = () => {
 
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
+  const [userList, setUserList] = useState(false);
 
   useEffect(() => {
     const getUsers = async () => {
       const res = await axios.get('http://localhost:4000/api/users');
-      setUsers(res.data);
-    }
-    getUsers();
-  }, [])
 
+      setUsers(res.data);
+    };
+
+    getUsers();
+  }, [userList]);
 
   const onChangeUsername = (e) => {
     setUsername(e.target.value);
@@ -25,14 +27,16 @@ const CreateUser = () => {
       username: username
     });
     setUsername('');
-    // getUsers();
+    setUserList(!userList);
   };
 
   const deleteUser = async (id) => {
-    console.log(id);
+    // console.log(id);
     await axios.delete(`http://localhost:4000/api/users/${id}`);
     // getUsers();
-  }
+    setUserList(!userList);
+
+  };
 
   return (
     <div className="row">

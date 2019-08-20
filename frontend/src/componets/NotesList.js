@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 const NotesList = () => {
 
   const [notes, setNotes] = useState([]);
+  const [notesList, setNotesList] = useState(false);
 
   useEffect(() => {
     const getNotes = async () => {
@@ -13,7 +14,7 @@ const NotesList = () => {
       setNotes(res.data);
     };
     getNotes();
-  }, []);
+  }, [notesList]);
 
   // const getNotes = async () => {
   //   const res = await axios.get('http://localhost:4000/api/notes');
@@ -23,6 +24,7 @@ const NotesList = () => {
   const deleteNote = async (id) => {
     await axios.delete(`http://localhost:4000/api/notes/${id}`);
     // getNotes();
+    setNotesList(!notesList);
   };
 
   return (

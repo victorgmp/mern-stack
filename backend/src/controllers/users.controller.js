@@ -36,7 +36,7 @@ userCtrl.updateUser = async (req, res) => {
 
 userCtrl.deleteUser = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  // console.log(id);
   await User.findOneAndDelete({ _id: req.params.id });
   res.json('User deleted');
 }
