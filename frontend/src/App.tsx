@@ -8,20 +8,19 @@ import NotesList from './componets/NotesList';
 import CreateNote from './componets/CreateNote';
 import CreateUser from './componets/CreateUser';
 
-
-function App() {
+const App: React.FC = () => {
   return (
     <Router>
       <Navigation />
 
-      <div className="container p-4">
-        <Route path="/" exact component={NotesList} />
-        <Route path="/edit/:id" component={CreateNote} />
-        <Route path="/create" component={CreateNote} />
-        <Route path="/user" component={CreateUser} />
+      <div className='container p-4'>
+        <Route path='/' exact component={NotesList} />
+        <Route path='/edit/:id' component={CreateNote} />
+        <Route path='/create' component={CreateNote} />
+        <Route path='/user' component={CreateUser} />
       </div>
     </Router>
   );
-}
+};
 
 export default App;

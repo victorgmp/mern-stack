@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const CreateNote = (props) => {
-
+const CreateNote = (props: any) => {
   const [users, setUsers] = useState([]);
   const [userSelected, setUserSelected] = useState('');
   const [title, setTitle] = useState('');
@@ -14,9 +13,8 @@ const CreateNote = (props) => {
   const [_id, setId] = useState('');
   const editNoteId = props.match.params.id;
 
-
   useEffect(() => {
-    //console.log(editNoteId);
+    // console.log(editNoteId);
 
     const getUsers = async () => {
       const res = await axios.get('http://localhost:4000/api/users');
@@ -27,7 +25,7 @@ const CreateNote = (props) => {
 
       if (editNoteId) {
         const { data } = await axios.get(`http://localhost:4000/api/notes/${editNoteId}`);
-        //console.log(data.date);
+        // console.log(data.date);
         setTitle(data.title);
         setContent(data.content);
         setDate(new Date(data.date));
@@ -35,29 +33,29 @@ const CreateNote = (props) => {
         setEditing(true);
         setId(editNoteId);
       }
-    }
+    };
     getUsers();
   }, [editNoteId]);
 
-  const onSubmit = async (e) => {
+  const onSubmit = async e => {
     e.preventDefault();
     const newNote = {
-      title: title,
-      content: content,
-      date: date,
-      author: userSelected
+      title,
+      content,
+      date,
+      author: userSelected,
     };
     if (editing) {
-      //console.log(newNote)
+      // console.log(newNote)
       await axios.put(`http://localhost:4000/api/notes/${_id}`, newNote);
     } else {
-      //console.log(newNote)
+      // console.log(newNote)
 
       await axios.post('http://localhost:4000/api/notes', newNote);
     }
-    //window.location.href = '/';
+    // window.location.href = '/';
     props.history.push('/');
-  }
+  };
 
   // const onInputChange = e => {
   //   // this.setState({
@@ -82,13 +80,11 @@ const CreateNote = (props) => {
             onChange={e => setUserSelected(e.target.value)}
             value={userSelected}
           >
-            {
-              users.map(user =>
-                <option key={user} value={user}>
-                  {user}
-                </option>)
-            }
-
+            {users.map(user => (
+              <option key={user} value={user}>
+                {user}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -100,7 +96,7 @@ const CreateNote = (props) => {
             name="title"
             onChange={e => setTitle(e.target.value)}
             value={title}
-            required
+            required={true}
           />
         </div>
 
@@ -111,30 +107,22 @@ const CreateNote = (props) => {
             placeholder="Content"
             onChange={e => setContent(e.target.value)}
             value={content}
-            required
-          >
-
-          </textarea>
-        </div>
-
-        <div className="form-group">
-          <DatePicker
-            className="form-control"
-            selected={date}
-            onChange={e => setContent(date)}
+            required={true}
           />
         </div>
 
-        <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <DatePicker className="form-control" selected={date} onChange={e => setContent(date)} />
+        </div>
 
+        <form onSubmit={onSubmit}>
           <button type="submit" className="btn btn-primary">
             Save
-            </button>
+          </button>
         </form>
-
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CreateNote;
