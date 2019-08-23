@@ -3,6 +3,8 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { IUser } from '../types/user';
+
 const CreateNote = (props: any) => {
   const [users, setUsers] = useState([]);
   const [userSelected, setUserSelected] = useState('');
@@ -18,7 +20,7 @@ const CreateNote = (props: any) => {
 
     const getUsers = async () => {
       const res = await axios.get('http://localhost:4000/api/users');
-      setUsers(res.data.map(user => user.username));
+      setUsers(res.data.map((user: IUser) => user.username));
       if (res.data[0]) {
         setUserSelected(res.data[0].username);
       }
@@ -37,7 +39,7 @@ const CreateNote = (props: any) => {
     getUsers();
   }, [editNoteId]);
 
-  const onSubmit = async e => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newNote = {
       title,
@@ -77,7 +79,7 @@ const CreateNote = (props: any) => {
           <select
             className="form-control"
             name="userSelected"
-            onChange={e => setUserSelected(e.target.value)}
+            // onChange={e => setUserSelected(e.target.value)}
             value={userSelected}
           >
             {users.map(user => (
@@ -94,7 +96,7 @@ const CreateNote = (props: any) => {
             className="form-control"
             placeholder="Title"
             name="title"
-            onChange={e => setTitle(e.target.value)}
+            // onChange={e => setTitle(e.target.value)}
             value={title}
             required={true}
           />
@@ -105,14 +107,14 @@ const CreateNote = (props: any) => {
             name="content"
             className="form-control"
             placeholder="Content"
-            onChange={e => setContent(e.target.value)}
+            // onChange={e => setContent(e.target.value)}
             value={content}
             required={true}
           />
         </div>
 
         <div className="form-group">
-          <DatePicker className="form-control" selected={date} onChange={e => setContent(date)} />
+          {/* <DatePicker className="form-control" selected={date} onChange={e => setContent(date)} /> */}
         </div>
 
         <form onSubmit={onSubmit}>

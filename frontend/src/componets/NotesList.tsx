@@ -3,6 +3,8 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import { Link } from 'react-router-dom';
 
+import { INote } from '../types/note';
+
 const NotesList = () => {
   // it is not necessary to declare the types
   const [notes, setNotes] = useState([]);
@@ -21,15 +23,21 @@ const NotesList = () => {
   //   setNotes(res.data);
   // };
 
-  const deleteNote = async (id: string) => {
+  const deleteNote = React.useCallback(async (id: string) => {
     await axios.delete(`http://localhost:4000/api/notes/${id}`);
     // getNotes();
     setNotesList(!notesList);
-  };
+  }, []);
+
+  // const deleteNote = async (id: string) => {
+  //   await axios.delete(`http://localhost:4000/api/notes/${id}`);
+  //   // getNotes();
+  //   setNotesList(!notesList);
+  // };
 
   return (
     <div className="row">
-      {notes.map(note => (
+      {notes.map((note: INote) => (
         <div className="col-md-4 p-2" key={note._id}>
           <div className="card">
             <div className="card-header d-flex justify-content-between">
@@ -44,9 +52,9 @@ const NotesList = () => {
               <p>{format(note.date)}</p>
             </div>
             <div className="card-footer">
-              <button className="btn btn-danger" onClick={() => deleteNote(note._id)}>
+              {/* <button className="btn btn-danger" onClick={() => deleteNote(note._id)}>
                 Delete
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
