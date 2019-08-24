@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import User, { IUser } from '../models/user';
 
 class UserController {
-  public async getUsers(req: Request, res: Response) {
+  public async getUsers(req: Request, res: Response): Promise<Response | void> {
     try {
       const users = await User.find();
-      res.json(users);
+      res.status(200).json(users);
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -18,7 +18,7 @@ class UserController {
       const { username } = req.body;
       const newUser: IUser = new User({ username });
       await newUser.save();
-      res.send({ message: 'User saved' });
+      res.status(201).send({ message: 'User saved' });
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -29,7 +29,7 @@ class UserController {
   public async getUser(req: Request, res: Response) {
     try {
       const user = await User.findById(req.params.id);
-      res.json(user);
+      res.status(200).json(user);
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -42,7 +42,7 @@ class UserController {
       // const { id } = req.params;
       // console.log(id);
       await User.findOneAndDelete({ _id: req.params.id });
-      res.json('User deleted');
+      res.status(201).send({ message: 'User deleted' });
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -58,7 +58,7 @@ class UserController {
   //       username,
   //     },
   //   );
-  //   res.json({ message: "User updated" });
+  //   res.status(201).send({ message: "User updated" });
   // };
 }
 

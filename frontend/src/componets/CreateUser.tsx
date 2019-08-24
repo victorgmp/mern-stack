@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { IUser } from '../interfaces/user';
+
 const CreateUser = () => {
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
@@ -16,7 +18,7 @@ const CreateUser = () => {
     getUsers();
   }, [userList]);
 
-  const onChangeUsername = e => {
+  const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
   };
 
@@ -29,8 +31,8 @@ const CreateUser = () => {
     setUserList(!userList);
   };
 
-  const deleteUser = async (id: number) => {
-    // console.log(id);
+  const deleteUser = async (id: string) => {
+    console.log(id);
     await axios.delete(`http://localhost:4000/api/users/${id}`);
     // getUsers();
     setUserList(!userList);
@@ -53,11 +55,11 @@ const CreateUser = () => {
       </div>
       <div className="col-md-8">
         <ul className="list-group">
-          {users.map(user => (
+          {users.map((user: IUser) => (
             <li
               className="list-group-item list-group-item-action"
               key={user._id}
-              // onDoubleClick={() => deleteUser(user._id)}
+              onDoubleClick={() => deleteUser(user._id)}
             >
               {user.username}
             </li>

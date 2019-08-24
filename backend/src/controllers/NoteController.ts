@@ -2,10 +2,10 @@ import { Request, Response } from 'express';
 import Note, { INote } from '../models/note';
 
 class NoteController {
-  public async getNotes(req: Request, res: Response) {
+  public async getNotes(req: Request, res: Response): Promise<Response | void> {
     try {
       const notes = await Note.find();
-      res.json(notes);
+      res.status(200).json(notes);
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -22,7 +22,7 @@ class NoteController {
         author,
       });
       await newNote.save();
-      res.send({ message: 'Note saved' });
+      res.status(201).send({ message: 'Note saved' });
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -32,7 +32,7 @@ class NoteController {
   public async getNote(req: Request, res: Response) {
     try {
       const note = await Note.findById(req.params.id);
-      res.json(note);
+      res.status(200).json(note);
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -51,7 +51,7 @@ class NoteController {
           author,
         },
       );
-      res.json({ message: 'Note updated' });
+      res.status(201).send({ message: 'Note updated' });
     } catch (err) {
       res.status(400).json({
         error: err,
@@ -61,7 +61,7 @@ class NoteController {
   public async deleteNote(req: Request, res: Response) {
     try {
       await Note.findOneAndDelete({ _id: req.params.id });
-      res.send({ message: 'Note deleted' });
+      res.status(201).send({ message: 'Note deleted' });
     } catch (err) {
       res.status(400).json({
         error: err,

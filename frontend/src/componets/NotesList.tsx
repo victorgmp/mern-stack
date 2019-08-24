@@ -3,7 +3,7 @@ import axios from 'axios';
 import { format } from 'timeago.js';
 import { Link } from 'react-router-dom';
 
-import { INote } from '../types/note';
+import { INote } from '../interfaces/note';
 
 const NotesList = () => {
   // it is not necessary to declare the types

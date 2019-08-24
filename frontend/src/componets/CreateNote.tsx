@@ -3,7 +3,8 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { IUser } from '../types/user';
+import { IUser } from '../interfaces/user';
+import { INote } from '../interfaces/note';
 
 const CreateNote = (props: any) => {
   const [users, setUsers] = useState([]);
@@ -41,7 +42,7 @@ const CreateNote = (props: any) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newNote = {
+    const newNote: INote = {
       title,
       content,
       date,
