@@ -23,17 +23,18 @@ const NotesList = () => {
   //   setNotes(res.data);
   // };
 
-  const deleteNote = React.useCallback(async (id: string) => {
-    await axios.delete(`http://localhost:4000/api/notes/${id}`);
-    // getNotes();
-    setNotesList(!notesList);
-  }, []);
-
-  // const deleteNote = async (id: string) => {
+  // const deleteNote = React.useCallback(async (id: string) => {
   //   await axios.delete(`http://localhost:4000/api/notes/${id}`);
   //   // getNotes();
   //   setNotesList(!notesList);
-  // };
+  // }, []);
+
+  const deleteNote = async (id: any) => {
+    console.log(id);
+    await axios.delete(`http://localhost:4000/api/notes/${id}`);
+    // getNotes();
+    setNotesList(!notesList);
+  };
 
   return (
     <div className="row">
@@ -52,9 +53,9 @@ const NotesList = () => {
               <p>{format(note.date)}</p>
             </div>
             <div className="card-footer">
-              {/* <button className="btn btn-danger" onClick={() => deleteNote(note._id)}>
+              <button className="btn btn-danger" onClick={() => deleteNote(note._id)}>
                 Delete
-              </button> */}
+              </button>
             </div>
           </div>
         </div>

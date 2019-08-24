@@ -1,21 +1,39 @@
 {
-  "extends": ["tslint-config-airbnb", "tslint-react"],
+  "extends": [
+    "tslint-config-airbnb",
+    "tslint-react"
+  ],
   "linterOptions": {
-    "exclude": ["config/**/*.js", "node_modules/**/*.ts", "coverage/lcov-report/*.js"]
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
   },
   "rules": {
-    "align": [false, "parameters", "arguments", "statements"],
+    "align": [
+      false,
+      "parameters",
+      "arguments",
+      "statements"
+    ],
     "ban": false,
     "class-name": true,
     "curly": false,
     "forin": false,
     "import-name": false,
     "jsdoc-format": true,
+    "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,
     "label-position": true,
     "member-access": false,
     "max-line-length": false,
-    "member-ordering": [true, "public-before-private", "static-before-instance", "variables-before-functions"],
+    "member-ordering": [
+      true,
+      "public-before-private",
+      "static-before-instance",
+      "variables-before-functions"
+    ],
     "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
@@ -39,8 +57,13 @@
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
     "radix": true,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "switch-default": true,
-    "triple-equals": [true, "allow-null-check"],
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
     "typedef": [
       false,
       "call-signature",
@@ -50,6 +73,11 @@
       "variable-declaration",
       "member-variable-declaration"
     ],
-    "variable-name": [false, "check-format", "allow-leading-underscore", "ban-keywords"]
+    "variable-name": [
+      false,
+      "check-format",
+      "allow-leading-underscore",
+      "ban-keywords"
+    ]
   }
 }

@@ -18,10 +18,6 @@ const CreateUser = () => {
     getUsers();
   }, [userList]);
 
-  const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await axios.post('http://localhost:4000/api/users', {
@@ -45,7 +41,12 @@ const CreateUser = () => {
           <h3>Create new user</h3>
           <form onSubmit={onSubmit}>
             <div className="form-group">
-              <input type="text" className="form-control" value={username} onChange={onChangeUsername} />
+              <input
+                type="text"
+                className="form-control"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
             </div>
             <button type="submit" className="btn btn-primary">
               Save
